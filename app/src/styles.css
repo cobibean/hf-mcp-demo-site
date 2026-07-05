@@ -591,7 +591,7 @@ video {
   font-size: clamp(0.98rem, 1.2vw, 1.12rem);
   font-weight: 600;
   line-height: 1.42;
-  transform: translate(clamp(-98px, -4vw, -72px), clamp(250px, 18vw, 320px));
+  transform: translate(clamp(36px, 2.3vw, 50px), clamp(250px, 16vw, 290px));
 }
 
 .daily-stamp {
