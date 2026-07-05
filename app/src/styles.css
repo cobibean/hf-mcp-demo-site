@@ -1,3 +1,45 @@
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/fonts/CabinetGrotesk-500.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/fonts/CabinetGrotesk-700.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/fonts/CabinetGrotesk-800.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/fonts/CabinetGrotesk-900.woff2") format("woff2");
+  font-weight: 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  src: url("/fonts/InterTight-Variable.woff2") format("woff2");
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Caveat";
+  src: url("/fonts/Caveat-Variable.woff2") format("woff2");
+  font-weight: 500 700;
+  font-display: swap;
+}
+
 :root {
   --front-window-green: #2f5f4a;
   --booth-vinyl-red: #9e3f32;
@@ -6,8 +48,15 @@
   --maple-syrup: #c17835;
   --sidewalk-blue-gray: #7e9397;
   --ink-soft: rgba(247, 242, 234, 0.86);
+  --maple-syrup-ink: #8a5420;
   --display: "Cabinet Grotesk", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --sans: "Inter Tight", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --script: "Caveat", "Segoe Script", cursive;
+  --page-max: 1500px;
+  /* Distance from the viewport edge to a centered --page-max container.
+     Percentages resolve at the property where var() is used, so this works
+     for both section padding and absolutely-positioned children. */
+  --edge: calc((100% - var(--page-max)) / 2);
 }
 
 * {
@@ -104,8 +153,8 @@ video {
 .site-nav {
   position: absolute;
   top: clamp(18px, 3.4vw, 46px);
-  left: clamp(18px, 4.6vw, 66px);
-  right: clamp(18px, 4.6vw, 66px);
+  left: max(clamp(18px, 4.6vw, 66px), var(--edge));
+  right: max(clamp(18px, 4.6vw, 66px), var(--edge));
   z-index: 2;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -192,7 +241,7 @@ video {
 
 .window-sign span {
   font-size: clamp(3rem, 7.8vw, 7.35rem);
-  font-weight: 950;
+  font-weight: 900;
   line-height: 0.82;
 }
 
@@ -222,7 +271,7 @@ video {
 
 .hero-copy {
   position: absolute;
-  left: clamp(24px, 5vw, 66px);
+  left: max(clamp(24px, 5vw, 66px), var(--edge));
   bottom: clamp(28px, 7vw, 86px);
   z-index: 2;
   width: min(780px, calc(100vw - 48px));
@@ -233,9 +282,9 @@ video {
   max-width: 820px;
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(4.6rem, 8.4vw, 8.25rem);
-  font-weight: 950;
-  line-height: 0.82;
+  font-size: clamp(3.6rem, 5.4vw, 6rem);
+  font-weight: 900;
+  line-height: 0.92;
   letter-spacing: 0;
   text-wrap: balance;
   text-shadow: 0 4px 34px rgba(10, 16, 12, 0.48);
@@ -243,7 +292,7 @@ video {
 
 .hero-copy p {
   margin: 16px 0 26px;
-  color: var(--sidewalk-blue-gray);
+  color: var(--ink-soft);
   font-family: var(--display);
   font-size: clamp(0.9rem, 1.55vw, 1.45rem);
   font-weight: 900;
@@ -266,7 +315,7 @@ video {
   filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.22));
   font-family: var(--display);
   font-size: 1rem;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -373,9 +422,12 @@ video {
 
 .daily-reasons {
   position: relative;
-  min-height: 100svh;
   overflow: hidden;
-  padding: clamp(86px, 9vw, 116px) clamp(22px, 4vw, 52px) clamp(56px, 7vw, 82px);
+  display: grid;
+  grid-template-columns: minmax(300px, 650px) minmax(0, 820px);
+  justify-content: space-between;
+  column-gap: clamp(32px, 4vw, 72px);
+  padding: clamp(86px, 9vw, 116px) max(clamp(22px, 4vw, 52px), var(--edge)) clamp(130px, 12vw, 180px);
   background-color: var(--porcelain-white);
   background-size: cover;
   color: var(--front-window-green);
@@ -411,8 +463,8 @@ video {
 .menu-topline {
   position: absolute;
   top: 0;
-  left: clamp(22px, 4vw, 52px);
-  right: clamp(22px, 4vw, 52px);
+  left: max(clamp(22px, 4vw, 52px), var(--edge));
+  right: max(clamp(22px, 4vw, 52px), var(--edge));
   height: 56px;
   display: flex;
   align-items: center;
@@ -433,8 +485,8 @@ video {
 
 .menu-lockup i {
   color: var(--maple-syrup);
-  font-family: "Brush Script MT", "Segoe Script", cursive;
-  font-size: 1.25rem;
+  font-family: var(--script);
+  font-size: 1.5rem;
   font-weight: 400;
   letter-spacing: 0;
   text-transform: none;
@@ -444,6 +496,7 @@ video {
   display: flex;
   align-items: center;
   gap: 15px;
+  margin-right: 185px;
   font-size: 0.77rem;
 }
 
@@ -454,7 +507,7 @@ video {
 .ticket-cta {
   position: absolute;
   top: 28px;
-  right: clamp(20px, 3.4vw, 42px);
+  right: max(clamp(20px, 3.4vw, 42px), var(--edge));
   z-index: 2;
   display: grid;
   grid-template-columns: 1fr 24px 28px;
@@ -472,7 +525,7 @@ video {
 
 .ticket-cta span {
   font-size: 1.62rem;
-  font-weight: 950;
+  font-weight: 900;
   line-height: 0.9;
 }
 
@@ -496,7 +549,7 @@ video {
   grid-template-columns: minmax(260px, 440px) minmax(148px, 210px);
   gap: clamp(18px, 3vw, 38px);
   align-items: center;
-  width: min(46vw, 650px);
+  align-self: start;
   padding-top: clamp(22px, 4vw, 46px);
 }
 
@@ -509,7 +562,7 @@ video {
   color: var(--booth-vinyl-red);
   font-family: var(--display);
   font-size: 0.86rem;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -525,22 +578,19 @@ video {
   grid-row: span 2;
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(7rem, 12vw, 12.8rem);
-  font-weight: 950;
-  line-height: 0.74;
+  font-size: clamp(5.6rem, 9vw, 9.6rem);
+  font-weight: 900;
+  line-height: 0.84;
   letter-spacing: 0;
 }
 
 .daily-note {
-  max-width: 158px;
+  max-width: 200px;
   margin: 48px 0 0 -70px;
   color: var(--coffee-roast);
-  font-family: var(--display);
-  font-size: clamp(0.92rem, 1.2vw, 1.1rem);
-  font-weight: 900;
-  line-height: 1.38;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: clamp(0.98rem, 1.2vw, 1.12rem);
+  font-weight: 600;
+  line-height: 1.42;
 }
 
 .daily-stamp {
@@ -569,10 +619,11 @@ video {
 
 .daily-hours {
   position: absolute;
-  left: 0;
-  bottom: -185px;
+  left: max(clamp(22px, 4vw, 52px), var(--edge));
+  bottom: 44px;
+  z-index: 1;
   margin: 0;
-  color: var(--porcelain-white);
+  color: var(--front-window-green);
   font-family: var(--display);
   font-size: clamp(1rem, 1.5vw, 1.3rem);
   font-weight: 900;
@@ -582,15 +633,16 @@ video {
 }
 
 .meal-strip {
-  position: absolute;
-  top: clamp(98px, 14vw, 126px);
-  right: clamp(12px, 2vw, 28px);
+  position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(235px, 1fr) minmax(300px, 1.28fr) minmax(206px, 0.82fr);
+  grid-template-columns: minmax(215px, 1fr) minmax(270px, 1.28fr) minmax(190px, 0.82fr);
   align-items: start;
   gap: clamp(12px, 1.3vw, 20px);
-  width: min(59vw, 790px);
+  justify-self: end;
+  width: 100%;
+  max-width: 820px;
+  margin-top: clamp(4px, 1.5vw, 18px);
 }
 
 .meal-card {
@@ -666,7 +718,7 @@ video {
   color: var(--porcelain-white);
   font-family: var(--display);
   font-size: 0.88rem;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.12em;
   line-height: 1;
   text-align: center;
@@ -687,7 +739,7 @@ video {
   margin: 0 0 6px;
   font-family: var(--display);
   font-size: 1.03rem;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.09em;
   line-height: 1.05;
   text-transform: uppercase;
@@ -704,7 +756,7 @@ video {
   color: var(--front-window-green);
   font-family: var(--display);
   font-size: 0.88rem;
-  font-weight: 950;
+  font-weight: 900;
 }
 
 .paper-sketch {
@@ -741,13 +793,13 @@ video {
 
 .batch-note {
   position: absolute;
-  right: clamp(30px, 6vw, 88px);
+  right: max(clamp(30px, 6vw, 88px), calc(var(--edge) + 20px));
   bottom: 52px;
   margin: 0;
   color: var(--front-window-green);
   font-family: var(--display);
   font-size: 0.76rem;
-  font-weight: 950;
+  font-weight: 900;
   line-height: 1.35;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -755,18 +807,17 @@ video {
 
 @media (max-width: 1100px) {
   .daily-reasons {
+    grid-template-columns: 1fr;
     padding-top: 92px;
   }
 
   .daily-copy {
-    width: min(100%, 580px);
+    max-width: 580px;
   }
 
   .meal-strip {
-    position: relative;
-    top: auto;
-    right: auto;
-    width: 100%;
+    justify-self: stretch;
+    max-width: none;
     margin-top: 56px;
   }
 
@@ -825,7 +876,6 @@ video {
 }
 
 .site-footer {
-  min-height: 100svh;
   background: var(--porcelain-white);
   color: var(--coffee-roast);
 }
@@ -835,10 +885,10 @@ video {
   align-items: center;
   justify-content: space-between;
   min-height: 66px;
-  padding: 16px clamp(28px, 4.6vw, 64px);
+  padding: 16px max(clamp(28px, 4.6vw, 64px), var(--edge));
   border-bottom: 1px solid rgba(52, 37, 30, 0.12);
   font-family: var(--display);
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -909,7 +959,7 @@ video {
   color: #e7b979;
   font-family: var(--display);
   font-size: 1.55rem;
-  font-weight: 520;
+  font-weight: 500;
   letter-spacing: 0.18em;
   line-height: 1.18;
   text-align: center;
@@ -937,7 +987,7 @@ video {
   align-items: center;
   gap: 40px;
   min-height: 236px;
-  padding: 30px clamp(42px, 8vw, 132px);
+  padding: clamp(48px, 5vw, 72px) max(clamp(42px, 8vw, 132px), calc(var(--edge) + 40px));
   background-color: var(--porcelain-white);
   background-position: left center;
   background-repeat: repeat;
@@ -949,10 +999,10 @@ video {
   justify-self: end;
   margin: 0;
   color: var(--coffee-roast);
-  font-family: "Times New Roman", Georgia, serif;
-  font-size: clamp(4.8rem, 6.4vw, 6.8rem);
+  font-family: var(--display);
+  font-size: clamp(4.2rem, 5.6vw, 5.8rem);
   font-weight: 800;
-  line-height: 0.86;
+  line-height: 0.94;
   letter-spacing: 0;
   white-space: nowrap;
 }
@@ -964,10 +1014,10 @@ video {
 
 .save-seat p {
   margin: 0 0 18px;
-  color: var(--maple-syrup);
+  color: var(--maple-syrup-ink);
   font-family: var(--display);
   font-size: 0.84rem;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.07em;
   text-transform: uppercase;
 }
@@ -989,7 +1039,7 @@ video {
   color: var(--front-window-green);
   font-family: var(--display);
   font-size: 0.88rem;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -1009,7 +1059,7 @@ video {
   gap: clamp(22px, 3vw, 46px);
   align-items: center;
   min-height: 148px;
-  padding: 14px clamp(32px, 5vw, 66px);
+  padding: clamp(28px, 3vw, 40px) max(clamp(32px, 5vw, 66px), var(--edge));
   background:
     linear-gradient(rgba(47, 95, 74, 0.96), rgba(21, 66, 45, 0.96)),
     var(--front-window-green);
@@ -1110,7 +1160,8 @@ video {
   }
 
   .save-seat h2 {
-    font-size: clamp(4.1rem, 19vw, 6.4rem);
+    font-size: clamp(3rem, 13.5vw, 5rem);
+    white-space: normal;
   }
 
   .footer-rail {
@@ -1120,7 +1171,6 @@ video {
 
 .visit-details {
   position: relative;
-  min-height: 100svh;
   overflow: hidden;
   background: var(--porcelain-white);
   color: var(--coffee-roast);
@@ -1131,10 +1181,10 @@ video {
   grid-template-columns: 220px 1fr auto;
   align-items: center;
   min-height: 122px;
-  padding: 24px clamp(28px, 3.3vw, 42px);
+  padding: 24px max(clamp(28px, 3.3vw, 42px), var(--edge));
   border-bottom: 1px solid rgba(52, 37, 30, 0.22);
   font-family: var(--display);
-  font-weight: 950;
+  font-weight: 900;
   text-transform: uppercase;
 }
 
@@ -1192,7 +1242,7 @@ video {
   display: grid;
   grid-template-columns: minmax(320px, 32vw) 1fr;
   gap: clamp(28px, 4vw, 58px);
-  padding: 28px clamp(28px, 3.3vw, 42px) 26px;
+  padding: clamp(28px, 3.5vw, 48px) max(clamp(28px, 3.3vw, 42px), var(--edge)) clamp(26px, 3vw, 44px);
 }
 
 .visit-title p {
@@ -1200,7 +1250,7 @@ video {
   color: var(--maple-syrup);
   font-family: var(--display);
   font-size: 1rem;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -1218,9 +1268,9 @@ video {
   margin: 0;
   color: var(--front-window-green);
   font-family: var(--display);
-  font-size: clamp(5rem, 7.7vw, 7.1rem);
-  font-weight: 950;
-  line-height: 0.78;
+  font-size: clamp(4.2rem, 6vw, 6.2rem);
+  font-weight: 900;
+  line-height: 0.86;
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -1230,7 +1280,7 @@ video {
   margin-top: 18px;
   font-family: var(--display);
   font-size: clamp(1rem, 1.25vw, 1.2rem);
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
@@ -1259,7 +1309,7 @@ video {
   color: var(--front-window-green);
   font-family: var(--display);
   font-size: 1rem;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.04em;
   line-height: 1;
   text-transform: uppercase;
@@ -1267,21 +1317,21 @@ video {
 
 .visit-card p {
   margin: 0 0 5px;
-  font-family: var(--display);
-  font-size: clamp(0.78rem, 0.98vw, 0.92rem);
-  font-weight: 850;
-  line-height: 1.14;
-  text-transform: uppercase;
+  font-size: clamp(0.84rem, 1vw, 0.95rem);
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .visit-card .visit-accent {
-  color: var(--maple-syrup);
+  color: var(--maple-syrup-ink);
 }
 
 .visit-media-strip {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 100%;
   height: clamp(240px, 34vh, 262px);
+  overflow: hidden;
 }
 
 .visit-media-strip > img,
@@ -1320,7 +1370,7 @@ video {
   color: var(--front-window-green);
   font-family: var(--display);
   font-size: 1.42rem;
-  font-weight: 950;
+  font-weight: 900;
   line-height: 0.82;
   text-align: center;
   text-transform: uppercase;
@@ -1347,10 +1397,11 @@ video {
   position: relative;
   z-index: 4;
   display: grid;
-  grid-template-columns: minmax(210px, 0.85fr) 110px minmax(440px, 1.1fr) minmax(220px, 0.8fr);
+  grid-template-columns: minmax(200px, 0.85fr) 90px minmax(420px, 1.1fr) minmax(220px, 0.8fr);
+  column-gap: clamp(18px, 2.4vw, 46px);
   align-items: center;
   min-height: 116px;
-  padding: 18px clamp(32px, 7vw, 120px);
+  padding: 18px max(clamp(32px, 7vw, 120px), calc(var(--edge) + 32px));
   background: var(--maple-syrup);
   color: var(--coffee-roast);
   font-family: var(--display);
@@ -1358,8 +1409,8 @@ video {
 }
 
 .call-ahead-band span {
-  font-size: clamp(2.2rem, 3.9vw, 3.7rem);
-  font-weight: 950;
+  font-size: clamp(2rem, 3.2vw, 3.1rem);
+  font-weight: 900;
   line-height: 0.9;
 }
 
@@ -1371,8 +1422,8 @@ video {
 
 .call-ahead-band b {
   color: var(--porcelain-white);
-  font-size: clamp(3.1rem, 5.8vw, 5.3rem);
-  font-weight: 950;
+  font-size: clamp(2.6rem, 4.2vw, 4.2rem);
+  font-weight: 900;
   line-height: 0.86;
   letter-spacing: 0.03em;
   white-space: nowrap;
@@ -1383,7 +1434,7 @@ video {
   padding-left: 34px;
   font-style: normal;
   font-size: clamp(1rem, 1.55vw, 1.35rem);
-  font-weight: 950;
+  font-weight: 900;
   line-height: 1.1;
 }
 
@@ -1457,9 +1508,13 @@ video {
 
 .weekly-specials {
   position: relative;
-  min-height: 100svh;
   overflow: hidden;
-  padding: clamp(32px, 4vw, 42px) clamp(30px, 4vw, 52px) clamp(84px, 10vw, 118px);
+  display: grid;
+  grid-template-columns: minmax(300px, 400px) minmax(320px, 440px) minmax(280px, 420px);
+  justify-content: space-between;
+  align-items: start;
+  column-gap: clamp(28px, 4vw, 64px);
+  padding: clamp(32px, 4vw, 42px) max(clamp(30px, 4vw, 52px), var(--edge)) clamp(150px, 16vw, 210px);
   background-color: var(--front-window-green);
   background-position: center;
   background-size: cover;
@@ -1480,12 +1535,13 @@ video {
 .specials-nav {
   position: relative;
   z-index: 5;
+  grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 250px 1fr auto;
   align-items: start;
   gap: 28px;
   font-family: var(--display);
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -1531,15 +1587,14 @@ video {
 .specials-copy {
   position: relative;
   z-index: 3;
-  width: min(32vw, 370px);
   margin-top: clamp(52px, 8vw, 74px);
-  margin-left: clamp(20px, 4vw, 36px);
+  margin-left: clamp(8px, 2vw, 24px);
 }
 
 .specials-copy p {
   margin: 0 0 18px;
   color: var(--maple-syrup);
-  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-family: var(--script);
   font-size: clamp(1.4rem, 2.4vw, 2.3rem);
   font-weight: 700;
   line-height: 0.9;
@@ -1562,8 +1617,8 @@ video {
 .specials-copy h2 {
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(5.2rem, 8vw, 8rem);
-  font-weight: 950;
+  font-size: clamp(4.4rem, 6.4vw, 6.8rem);
+  font-weight: 900;
   line-height: 0.9;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -1576,7 +1631,7 @@ video {
   gap: 14px;
   margin-top: 34px;
   color: var(--porcelain-white);
-  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-family: var(--script);
   font-size: clamp(1.55rem, 2.2vw, 2.15rem);
   font-weight: 800;
   line-height: 1;
@@ -1607,12 +1662,11 @@ video {
 }
 
 .chalkboard-frame {
-  position: absolute;
-  top: clamp(110px, 14vw, 126px);
-  left: 34%;
+  position: relative;
   z-index: 3;
-  width: min(34vw, 420px);
-  margin: 0;
+  width: 100%;
+  max-width: 420px;
+  margin: clamp(58px, 7vw, 84px) 0 0;
   box-shadow: 0 18px 36px rgba(10, 16, 12, 0.38);
 }
 
@@ -1627,7 +1681,7 @@ video {
   position: absolute;
   left: 18%;
   right: 14%;
-  bottom: 18%;
+  top: 36%;
   color: rgba(247, 242, 234, 0.88);
   font-family: var(--display);
   font-size: clamp(0.66rem, 0.86vw, 0.78rem);
@@ -1656,11 +1710,12 @@ video {
 }
 
 .handbill-cluster {
-  position: absolute;
-  top: clamp(100px, 13vw, 116px);
-  right: clamp(28px, 5vw, 72px);
+  position: relative;
   z-index: 2;
-  width: min(33vw, 420px);
+  justify-self: end;
+  width: 100%;
+  max-width: 420px;
+  margin-top: clamp(44px, 5.5vw, 66px);
   height: min(63vh, 520px);
   object-fit: cover;
   object-position: center;
@@ -1681,7 +1736,7 @@ video {
 
 @media (max-width: 1100px) {
   .weekly-specials {
-    min-height: auto;
+    grid-template-columns: minmax(280px, 1fr) minmax(260px, 1fr);
     padding-bottom: 160px;
   }
 
@@ -1694,33 +1749,27 @@ video {
   }
 
   .specials-copy {
+    grid-column: 1 / -1;
     width: min(100%, 460px);
   }
 
-  .chalkboard-frame,
-  .handbill-cluster {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    display: inline-block;
-    vertical-align: top;
+  .chalkboard-frame {
+    max-width: 450px;
     margin-top: 42px;
   }
 
-  .chalkboard-frame {
-    width: min(52vw, 450px);
-    margin-left: 0;
-  }
-
   .handbill-cluster {
-    width: min(38vw, 330px);
+    max-width: 330px;
     height: 420px;
-    margin-left: 28px;
+    margin-top: 42px;
   }
 }
 
 @media (max-width: 760px) {
+  .weekly-specials {
+    grid-template-columns: 1fr;
+  }
+
   .specials-nav {
     display: flex;
     align-items: center;
@@ -1751,9 +1800,8 @@ video {
 
 .audience-paths {
   position: relative;
-  min-height: 100svh;
   overflow: hidden;
-  padding: clamp(42px, 5vw, 58px) clamp(26px, 4vw, 56px) clamp(36px, 5vw, 58px);
+  padding: clamp(42px, 5vw, 58px) max(clamp(26px, 4vw, 56px), var(--edge)) clamp(56px, 6vw, 78px);
   background-color: var(--porcelain-white);
   background-size: cover;
   color: var(--front-window-green);
@@ -1785,7 +1833,7 @@ video {
   margin: 0 0 12px;
   font-family: var(--display);
   font-size: 0.88rem;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -1798,9 +1846,9 @@ video {
   margin: 0;
   max-width: 480px;
   font-family: var(--display);
-  font-size: clamp(3.75rem, 5.8vw, 5.95rem);
-  font-weight: 950;
-  line-height: 0.88;
+  font-size: clamp(3.4rem, 4.8vw, 5.2rem);
+  font-weight: 900;
+  line-height: 0.94;
   letter-spacing: 0;
   text-wrap: balance;
 }
@@ -1825,7 +1873,7 @@ video {
 
 .floor-plan {
   position: absolute;
-  inset: 34px 32px 38px;
+  inset: 34px max(32px, var(--edge)) 38px;
   z-index: 1;
   pointer-events: none;
 }
@@ -1837,13 +1885,12 @@ video {
 }
 
 .floor-plan::before {
-  top: 0;
-  left: 40%;
-  width: 46%;
-  height: 29%;
-  border: 8px solid var(--front-window-green);
-  border-bottom-width: 6px;
-  opacity: 0.92;
+  top: 74px;
+  left: 43%;
+  width: 39%;
+  height: 2px;
+  background: rgba(47, 95, 74, 0.34);
+  opacity: 0.72;
 }
 
 .floor-plan::after {
@@ -1857,19 +1904,39 @@ video {
 }
 
 .floor-window,
+.floor-window-rail,
 .floor-entrance {
   position: absolute;
+}
+
+.floor-window,
+.floor-entrance {
   color: var(--front-window-green);
   font-family: var(--display);
   font-size: 0.78rem;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
+.floor-window-rail {
+  top: 6px;
+  left: 40%;
+  width: 46%;
+  height: 38px;
+  border: 5px solid var(--front-window-green);
+  background-color: var(--front-window-green);
+  background-position: center;
+  background-size: cover;
+  box-shadow:
+    inset 0 0 0 1px rgba(247, 242, 234, 0.32),
+    0 12px 24px rgba(52, 37, 30, 0.12);
+  opacity: 0.86;
+}
+
 .floor-window {
-  top: 8%;
-  left: 51%;
+  top: 56px;
+  left: 52%;
 }
 
 .floor-entrance {
@@ -1912,15 +1979,13 @@ video {
 }
 
 .path-panel-row {
-  position: absolute;
-  left: clamp(36px, 7vw, 98px);
-  right: clamp(36px, 5vw, 74px);
-  bottom: clamp(58px, 6vw, 70px);
+  position: relative;
   z-index: 3;
   display: grid;
   grid-template-columns: 1fr 0.9fr 1fr;
   align-items: end;
   gap: clamp(26px, 5vw, 68px);
+  margin: clamp(96px, 11vw, 150px) clamp(0px, 1vw, 22px) 0 clamp(10px, 2vw, 46px);
 }
 
 .path-panel {
@@ -1995,10 +2060,10 @@ video {
 }
 
 .path-content span {
-  color: var(--maple-syrup);
+  color: var(--maple-syrup-ink);
   font-family: var(--display);
   font-size: 0.77rem;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -2008,7 +2073,7 @@ video {
   color: var(--coffee-roast);
   font-family: var(--display);
   font-size: clamp(2.3rem, 3vw, 3.1rem);
-  font-weight: 950;
+  font-weight: 900;
   line-height: 0.95;
 }
 
@@ -2036,7 +2101,7 @@ video {
   color: var(--front-window-green);
   font-family: var(--display);
   font-size: 0.77rem;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -2077,10 +2142,6 @@ video {
 }
 
 @media (max-width: 1180px) {
-  .audience-paths {
-    min-height: auto;
-  }
-
   .audience-lead {
     width: min(100%, 620px);
   }
@@ -2090,12 +2151,8 @@ video {
   }
 
   .path-panel-row {
-    position: relative;
-    left: auto;
-    right: auto;
-    bottom: auto;
     grid-template-columns: 1fr;
-    margin-top: 90px;
+    margin: 90px 0 0;
   }
 
   .path-panel {
@@ -2135,9 +2192,12 @@ video {
 
 .counter-favorites {
   position: relative;
-  min-height: 100svh;
   overflow: hidden;
-  padding: clamp(30px, 4vw, 42px) clamp(26px, 4vw, 48px) clamp(48px, 5vw, 64px);
+  display: grid;
+  grid-template-columns: minmax(320px, 470px) minmax(0, 860px);
+  justify-content: space-between;
+  column-gap: clamp(40px, 5vw, 96px);
+  padding: clamp(30px, 4vw, 42px) max(clamp(26px, 4vw, 48px), var(--edge)) clamp(72px, 7vw, 96px);
   background-color: var(--porcelain-white);
   background-size: cover;
   color: var(--front-window-green);
@@ -2157,6 +2217,7 @@ video {
 .counter-topline {
   position: relative;
   z-index: 3;
+  grid-column: 1 / -1;
   display: flex;
   align-items: flex-start;
   gap: clamp(34px, 7vw, 96px);
@@ -2164,7 +2225,7 @@ video {
   border-bottom: 1px solid rgba(52, 37, 30, 0.17);
   color: var(--front-window-green);
   font-family: var(--display);
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -2195,7 +2256,7 @@ video {
 .counter-copy {
   position: relative;
   z-index: 2;
-  width: min(39vw, 470px);
+  align-self: start;
   padding-top: clamp(28px, 4vw, 42px);
 }
 
@@ -2204,14 +2265,11 @@ video {
   max-width: 450px;
   color: var(--front-window-green);
   font-family: var(--display);
-  font-size: clamp(5.4rem, 8.1vw, 8.2rem);
-  font-weight: 950;
-  line-height: 0.78;
-  letter-spacing: 0;
+  font-size: clamp(4.2rem, 6.2vw, 6.4rem);
+  font-weight: 900;
+  line-height: 0.86;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
-  transform: scaleX(0.78);
-  transform-origin: left top;
-  width: 128%;
 }
 
 .counter-copy h2::after {
@@ -2225,14 +2283,14 @@ video {
 
 .counter-side-note {
   position: absolute;
-  top: clamp(106px, 15vw, 154px);
-  left: min(28vw, 340px);
+  top: clamp(48px, 6vw, 64px);
+  left: calc(100% + clamp(24px, 3vw, 56px));
   width: 108px;
   margin: 0;
   color: var(--maple-syrup);
   font-family: var(--display);
   font-size: 0.78rem;
-  font-weight: 950;
+  font-weight: 900;
   line-height: 1.45;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -2268,10 +2326,10 @@ video {
 }
 
 .favorites-list span {
-  color: var(--maple-syrup);
+  color: var(--maple-syrup-ink);
   font-family: var(--display);
   font-size: 1.12rem;
-  font-weight: 950;
+  font-weight: 900;
 }
 
 .favorites-list h3 {
@@ -2279,7 +2337,7 @@ video {
   margin: 0 0 5px;
   font-family: var(--display);
   font-size: clamp(1.03rem, 1.35vw, 1.23rem);
-  font-weight: 950;
+  font-weight: 900;
   line-height: 1.08;
   text-transform: uppercase;
 }
@@ -2300,7 +2358,7 @@ video {
   color: var(--front-window-green);
   font-family: var(--display);
   font-size: 0.86rem;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -2311,10 +2369,12 @@ video {
 }
 
 .favorites-collage {
-  position: absolute;
-  inset: clamp(74px, 8vw, 98px) clamp(28px, 4vw, 58px) 44px auto;
-  width: min(64vw, 860px);
-  min-height: 600px;
+  position: relative;
+  justify-self: end;
+  width: 100%;
+  max-width: 860px;
+  min-height: clamp(560px, 44vw, 640px);
+  margin-top: clamp(16px, 2vw, 32px);
 }
 
 .vinyl-field {
@@ -2377,11 +2437,11 @@ video {
 
 @media (max-width: 1040px) {
   .counter-favorites {
-    min-height: auto;
+    grid-template-columns: 1fr;
   }
 
   .counter-copy {
-    width: min(100%, 560px);
+    max-width: 560px;
   }
 
   .counter-side-note {
@@ -2389,9 +2449,8 @@ video {
   }
 
   .favorites-collage {
-    position: relative;
-    inset: auto;
-    width: 100%;
+    justify-self: stretch;
+    max-width: none;
     min-height: 580px;
     margin-top: 48px;
   }

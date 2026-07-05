@@ -216,14 +216,15 @@ function DailyReasonsSection() {
           <span>Maple &amp; Main</span>
           <small>Cafe</small>
         </div>
-        <p className="daily-hours">Open daily<br />7am - 3pm</p>
       </div>
+
+      <p className="daily-hours">Open daily<br />7am - 3pm</p>
 
       <div className="meal-strip" aria-label="Daily reasons to stop in">
         {menuReasons.map((item) => (
           <article className={`meal-card meal-card-${item.key}`} key={item.key}>
             <span className="meal-tab">{item.label}</span>
-            <img src={item.image} alt={item.alt} />
+            <img src={item.image} alt={item.alt} loading="lazy" decoding="async" />
             <div className="meal-card-copy">
               <div>
                 <h3>{item.title}</h3>
@@ -295,19 +296,19 @@ function CounterFavoritesSection() {
           <img
             src={mapleMainAssets.food.breakfastPancakes}
             alt="Buttermilk pancakes with maple syrup and butter."
-          />
+          loading="lazy" decoding="async" />
         </figure>
         <figure className="favorite-frame favorite-frame-lunch">
           <img
             src={mapleMainAssets.food.lunchSoupSandwich}
             alt="Turkey sandwich with tomato soup at the cafe counter."
-          />
+          loading="lazy" decoding="async" />
         </figure>
         <figure className="favorite-frame favorite-frame-coffee">
           <img
             src={mapleMainAssets.food.coffeePour}
             alt="Fresh coffee being poured into a white mug."
-          />
+          loading="lazy" decoding="async" />
         </figure>
       </div>
     </section>
@@ -330,6 +331,12 @@ function AudiencePathsSection() {
       </div>
 
       <div className="floor-plan" aria-hidden="true">
+        <span
+          className="floor-window-rail"
+          style={{
+            backgroundImage: `linear-gradient(90deg, rgba(47, 95, 74, 0.42), rgba(47, 95, 74, 0.18)), url(${mapleMainAssets.textures.paintedGreenTrim})`,
+          }}
+        ></span>
         <span className="floor-window">Front window</span>
         <span className="floor-entrance">Entrance</span>
         <span className="floor-coffee"></span>
@@ -353,7 +360,7 @@ function AudiencePathsSection() {
                 {item.cta} <b aria-hidden="true">-&gt;</b>
               </a>
             </div>
-            <img src={item.image} alt={item.alt} />
+            <img src={item.image} alt={item.alt} loading="lazy" decoding="async" />
           </article>
         ))}
       </div>
@@ -393,7 +400,7 @@ function WeeklySpecialsSection() {
         <img
           src={mapleMainAssets.specials.chalkboardPlate}
           alt="Framed chalkboard with hand-drawn cafe specials."
-        />
+        loading="lazy" decoding="async" />
         <figcaption>
           <ul>
             <li><span>Mon</span> Tomato soup and grilled cheddar</li>
@@ -407,7 +414,7 @@ function WeeklySpecialsSection() {
         className="handbill-cluster"
         src={mapleMainAssets.specials.handbillCluster}
         alt="Pinned paper coffee and breakfast sketches on a green wall."
-      />
+      loading="lazy" decoding="async" />
 
       <div
         className="specials-booth-rail"
@@ -448,7 +455,7 @@ function VisitDetailsSection() {
         <div className="visit-columns" aria-label="Visit details">
           {visitDetails.map((item) => (
             <article className="visit-card" key={item.label}>
-              <img src={item.icon} alt="" aria-hidden="true" />
+              <img src={item.icon} alt="" aria-hidden="true" loading="lazy" decoding="async" />
               <h3>{item.label}</h3>
               {item.lines.map((line, index) => (
                 <p className={index > 1 ? "visit-accent" : undefined} key={`${item.label}-${line}`}>
@@ -464,9 +471,9 @@ function VisitDetailsSection() {
         <img
           src={mapleMainAssets.visit.tabletopStrip}
           alt="Cafe table with mug, syrup, silverware, and red booth seating."
-        />
+        loading="lazy" decoding="async" />
         <figure>
-          <img src={mapleMainAssets.visit.mapBlock} alt="Simple map showing Maple and Main Cafe location." />
+          <img src={mapleMainAssets.visit.mapBlock} alt="Simple map showing Maple and Main Cafe location." loading="lazy" decoding="async" />
           <figcaption>Maple<br />&amp; Main <small>Cafe</small></figcaption>
         </figure>
       </div>
@@ -497,16 +504,16 @@ function SiteFooter() {
 
       <div className="footer-image-strip" aria-label="Cafe closing gallery">
         <figure>
-          <img src={mapleMainAssets.hero.still} alt="Maple and Main Cafe front window." />
+          <img src={mapleMainAssets.hero.still} alt="Maple and Main Cafe front window." loading="lazy" decoding="async" />
           <figcaption>Maple<br />&amp;<br />Main<br /><small>Cafe</small></figcaption>
         </figure>
-        <img src={mapleMainAssets.people.localsCoffeeSeat} alt="Coffee and paper at a red booth." />
-        <img src={mapleMainAssets.textures.menuPaperOverlay} alt="Warm printed menu paper texture." />
+        <img src={mapleMainAssets.people.localsCoffeeSeat} alt="Coffee and paper at a red booth." loading="lazy" decoding="async" />
+        <img src={mapleMainAssets.people.familyBooth} alt="Family breakfast spread at a wooden booth table." loading="lazy" decoding="async" />
         <figure>
-          <img src={mapleMainAssets.brand.logoMarkSource} alt="Maple and Main window coffee mark." />
+          <img src={mapleMainAssets.brand.logoMarkSource} alt="Maple and Main window coffee mark." loading="lazy" decoding="async" />
           <figcaption className="sign-caption">Coffee<br />People<br />Community</figcaption>
         </figure>
-        <img src={mapleMainAssets.footer.lastCup} alt="Last cup of coffee steaming on a cafe table." />
+        <img src={mapleMainAssets.footer.lastCup} alt="Last cup of coffee steaming on a cafe table." loading="lazy" decoding="async" />
       </div>
 
       <section
@@ -519,7 +526,7 @@ function SiteFooter() {
           <span>Whether it's your morning ritual or a midday reset, we'll save you a spot.</span>
           <a href="#visit">Plan your visit <b aria-hidden="true">-&gt;</b></a>
         </div>
-        <img src={mapleMainAssets.brand.logoMarkSource} alt="" aria-hidden="true" />
+        <img src={mapleMainAssets.brand.logoMarkSource} alt="" aria-hidden="true" loading="lazy" decoding="async" />
       </section>
 
       <div className="footer-rail">
@@ -535,12 +542,12 @@ function SiteFooter() {
           <span>Sat-Sun&nbsp;&nbsp;&nbsp;7:00am - 3:00pm</span>
           <a href="#visit">Holiday hours</a>
         </div>
-        <img className="footer-monogram" src={mapleMainAssets.brand.monogramBadgeSource} alt="Maple and Main monogram." />
+        <img className="footer-monogram" src={mapleMainAssets.brand.monogramBadgeSource} alt="Maple and Main monogram." loading="lazy" decoding="async" />
         <div className="footer-staples">
           <strong>Daily favorites</strong>
-          <span><img src={mapleMainAssets.icons.breakfast} alt="" aria-hidden="true" /> Breakfast</span>
-          <span><img src={mapleMainAssets.icons.lunch} alt="" aria-hidden="true" /> Lunch</span>
-          <span><img src={mapleMainAssets.icons.pie} alt="" aria-hidden="true" /> Pie by the slice</span>
+          <span><img src={mapleMainAssets.icons.breakfast} alt="" aria-hidden="true" loading="lazy" decoding="async" /> Breakfast</span>
+          <span><img src={mapleMainAssets.icons.lunch} alt="" aria-hidden="true" loading="lazy" decoding="async" /> Lunch</span>
+          <span><img src={mapleMainAssets.icons.pie} alt="" aria-hidden="true" loading="lazy" decoding="async" /> Pie by the slice</span>
         </div>
         <div>
           <strong>Follow along</strong>
