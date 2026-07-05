@@ -269,7 +269,6 @@ function CounterFavoritesSection() {
 
       <div className="counter-copy">
         <h2>Counter favorites</h2>
-        <p className="counter-side-note">Made fresh.<br />Served warm.<br />Morning well spent.</p>
         <ol className="favorites-list">
           {favorites.map((item) => (
             <li key={item.number}>
