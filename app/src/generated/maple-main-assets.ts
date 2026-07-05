@@ -1,8 +1,6 @@
 export const mapleMainAssets = {
   hero: {
     still: "/assets/hero/hero-window-still.png",
-    video: "/assets/hero/hero-window-scrub.mp4",
-    lqip: "/assets/hero/hero-window-lqip.webp",
     frameCount: 101,
     framePath: (index: number) =>
       `/assets/frames/hero/window-${index.toString().padStart(3, "0")}.webp`,
@@ -40,7 +38,6 @@ export const mapleMainAssets = {
     windowpaneMaplePattern: "/assets/brand/windowpane-maple-pattern.png",
   },
   icons: {
-    sheet: "/assets/icons/icon-sheet.png",
     coffee: "/assets/icons/coffee.png",
     breakfast: "/assets/icons/breakfast.png",
     lunch: "/assets/icons/lunch.png",

@@ -137,10 +137,6 @@ export default function useHeroSequence({
 
     loadFrame(0);
 
-    for (let frameIndex = 1; frameIndex < frameCount; frameIndex += 1) {
-      loadFrame(frameIndex);
-    }
-
     const firstFrame = frames[0];
 
     if (firstFrame?.complete && firstFrame.naturalWidth > 0) {
@@ -162,6 +158,10 @@ export default function useHeroSequence({
         isDisposed = true;
         resizeObserver.disconnect();
       };
+    }
+
+    for (let frameIndex = 1; frameIndex < frameCount; frameIndex += 1) {
+      loadFrame(frameIndex);
     }
 
     const setupMotion = async () => {

@@ -544,9 +544,9 @@ function SiteFooter() {
         </div>
         <div>
           <strong>Follow along</strong>
-          <a href="#footer">Instagram</a>
-          <a href="#footer">Facebook</a>
-          <a href="#footer">Email sign up</a>
+          <a href="https://www.instagram.com/mapleandmaincafe">Instagram</a>
+          <a href="https://www.facebook.com/mapleandmaincafe">Facebook</a>
+          <a href="mailto:hello@mapleandmaincafe.example">Email sign up</a>
         </div>
         <div>
           <span>© Maple &amp; Main Cafe</span>

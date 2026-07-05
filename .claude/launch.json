@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "maple-main-dev",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd app && pnpm exec vite --port $PORT --strictPort"],
+      "port": 5199,
+      "autoPort": true
+    }
+  ]
+}
