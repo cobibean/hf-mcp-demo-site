@@ -330,18 +330,7 @@ function AudiencePathsSection() {
         <small>Same booth. Different reasons. Find the path that fits your morning ritual.</small>
       </div>
 
-      <div className="floor-plan" aria-hidden="true">
-        <span
-          className="floor-window-rail"
-          style={{
-            backgroundImage: `linear-gradient(90deg, rgba(47, 95, 74, 0.42), rgba(47, 95, 74, 0.18)), url(${mapleMainAssets.textures.paintedGreenTrim})`,
-          }}
-        ></span>
-        <span className="floor-window">Front window</span>
-        <span className="floor-entrance">Entrance</span>
-        <span className="floor-coffee"></span>
-        <span className="floor-syrup"></span>
-      </div>
+      <div className="floor-plan" aria-hidden="true"></div>
 
       <div className="path-panel-row" aria-label="Ways to visit Maple and Main">
         {audiencePaths.map((item) => (
