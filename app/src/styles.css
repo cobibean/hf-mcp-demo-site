@@ -585,12 +585,13 @@ video {
 }
 
 .daily-note {
-  max-width: 200px;
+  max-width: 260px;
   margin: 48px 0 0 -70px;
   color: var(--coffee-roast);
   font-size: clamp(0.98rem, 1.2vw, 1.12rem);
   font-weight: 600;
   line-height: 1.42;
+  transform: translate(clamp(-98px, -4vw, -72px), clamp(250px, 18vw, 320px));
 }
 
 .daily-stamp {
@@ -813,6 +814,12 @@ video {
 
   .daily-copy {
     max-width: 580px;
+  }
+
+  .daily-note {
+    max-width: 310px;
+    margin: 24px 0 0;
+    transform: none;
   }
 
   .meal-strip {
