@@ -40,7 +40,13 @@ export default function useHeroSequence({
     let isDisposed = false;
     let currentFrame = 0;
     let gsapApi: typeof import("gsap").gsap | null = null;
-    let lenisInstance: { destroy: () => void; raf: (time: number) => void; on: (event: "scroll", callback: () => void) => void } | null = null;
+    let lenisInstance: {
+      destroy: () => void;
+      raf: (time: number) => void;
+      on: (event: "scroll", callback: () => void) => void;
+      scrollTo: (target: number | HTMLElement, options?: { duration?: number }) => void;
+    } | null = null;
+    let anchorClickHandler: ((event: MouseEvent) => void) | null = null;
     let tickerCallback: ((time: number) => void) | null = null;
     let tweenInstance: { kill: () => void; scrollTrigger?: { kill: () => void } } | null = null;
     const frames: Array<HTMLImageElement | undefined> = [];
@@ -160,9 +166,35 @@ export default function useHeroSequence({
       };
     }
 
-    for (let frameIndex = 1; frameIndex < frameCount; frameIndex += 1) {
-      loadFrame(frameIndex);
-    }
+    // Load the scrub frames in idle-time chunks instead of all at once, so the
+    // initial page load isn't competing with ~100 image requests.
+    let nextFrameToLoad = 1;
+    const idleWindow = browserWindow as typeof browserWindow & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+    };
+    const loadFrameChunk = () => {
+      if (isDisposed || nextFrameToLoad >= frameCount) {
+        return;
+      }
+
+      const chunkEnd = Math.min(frameCount, nextFrameToLoad + 12);
+
+      while (nextFrameToLoad < chunkEnd) {
+        loadFrame(nextFrameToLoad);
+        nextFrameToLoad += 1;
+      }
+
+      scheduleFrameChunk();
+    };
+    const scheduleFrameChunk = () => {
+      if (idleWindow.requestIdleCallback) {
+        idleWindow.requestIdleCallback(loadFrameChunk, { timeout: 600 });
+      } else {
+        browserWindow.setTimeout(loadFrameChunk, 120);
+      }
+    };
+
+    scheduleFrameChunk();
 
     const setupMotion = async () => {
       const [{ default: Lenis }, gsapModule, scrollTriggerModule] = await Promise.all([
@@ -191,6 +223,33 @@ export default function useHeroSequence({
       });
 
       lenisInstance.on("scroll", ScrollTrigger.update);
+
+      // Route same-page anchor clicks through Lenis so they glide like wheel
+      // scrolling instead of teleporting.
+      anchorClickHandler = (event: MouseEvent) => {
+        const origin = event.target as Element | null;
+        const link = origin?.closest?.('a[href^="#"]');
+
+        if (!link) {
+          return;
+        }
+
+        const href = link.getAttribute("href");
+
+        if (!href || href === "#") {
+          return;
+        }
+
+        const destination = href === "#top" ? 0 : document.querySelector<HTMLElement>(href);
+
+        if (destination === null) {
+          return;
+        }
+
+        event.preventDefault();
+        lenisInstance?.scrollTo(destination, { duration: 1.2 });
+      };
+      document.addEventListener("click", anchorClickHandler);
       tickerCallback = (time: number) => {
         lenisInstance?.raf(time * 1000);
       };
@@ -223,6 +282,11 @@ export default function useHeroSequence({
     return () => {
       isDisposed = true;
       resizeObserver.disconnect();
+
+      if (anchorClickHandler) {
+        document.removeEventListener("click", anchorClickHandler);
+      }
+
       tweenInstance?.scrollTrigger?.kill();
       tweenInstance?.kill();
 
