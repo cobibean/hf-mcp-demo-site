@@ -138,11 +138,11 @@ function HeroSection() {
         <nav className="nav-links" aria-label="Section links">
           <a href="#menu">Menu</a>
           <span aria-hidden="true"></span>
-          <a href="#favorites">Cafe</a>
+          <a href="#favorites">Favorites</a>
           <span aria-hidden="true"></span>
-          <a href="#specials">Journal</a>
+          <a href="#specials">Specials</a>
           <span aria-hidden="true"></span>
-          <a href="#visit">Find Us</a>
+          <a href="#visit">Visit</a>
         </nav>
 
         <a className="wordmark" href="#top" aria-label="Maple and Main Cafe home">
@@ -196,7 +196,7 @@ function DailyReasonsSection() {
           <b aria-hidden="true">·</b>
           <a href="#people">About</a>
           <b aria-hidden="true">·</b>
-          <a href="#visit">Find Us</a>
+          <a href="#visit">Visit</a>
         </nav>
       </div>
 
@@ -261,9 +261,9 @@ function CounterFavoritesSection() {
         </a>
         <nav aria-label="Counter favorites links">
           <a href="#menu">Menu</a>
-          <a href="#favorites">Cafe</a>
-          <a href="#specials">Journal</a>
-          <a href="#visit">Location</a>
+          <a href="#people">About</a>
+          <a href="#specials">Specials</a>
+          <a href="#visit">Visit</a>
         </nav>
       </div>
 
@@ -371,9 +371,9 @@ function WeeklySpecialsSection() {
         <nav>
           <a href="#menu">Menu</a>
           <a className="is-active" href="#specials">Specials</a>
-          <a href="#favorites">Coffee</a>
+          <a href="#favorites">Favorites</a>
           <a href="#people">About</a>
-          <a href="#visit">Find Us</a>
+          <a href="#visit">Visit</a>
         </nav>
         <a className="specials-order" href="#visit">Order Ahead</a>
       </header>
@@ -423,10 +423,9 @@ function VisitDetailsSection() {
         </a>
         <nav>
           <a href="#menu">Menu</a>
-          <a href="#people">Our Story</a>
-          <a href="#favorites">Gallery</a>
-          <a href="#specials">Community</a>
-          <a href="#specials">Journal</a>
+          <a href="#favorites">Favorites</a>
+          <a href="#people">About</a>
+          <a href="#specials">Specials</a>
         </nav>
         <a className="directions-cta" href="https://maps.apple.com/?q=123%20Maple%20Street%20Portland%20ME">
           Get Directions
@@ -483,8 +482,9 @@ function SiteFooter() {
         <a href="#top" className="footer-name">Maple &amp; Main Cafe</a>
         <nav aria-label="Footer navigation">
           <a href="#menu">Menu</a>
+          <a href="#favorites">Favorites</a>
           <a href="#people">About</a>
-          <a href="#specials">Journal</a>
+          <a href="#specials">Specials</a>
           <a href="#visit">Visit</a>
           <a className="footer-order" href="#visit">Order Ahead</a>
         </nav>
@@ -496,7 +496,7 @@ function SiteFooter() {
           <figcaption>Maple<br />&amp;<br />Main<br /><small>Cafe</small></figcaption>
         </figure>
         <img src={mapleMainAssets.people.localsCoffeeSeat} alt="Coffee and paper at a red booth." loading="lazy" decoding="async" />
-        <img src={mapleMainAssets.people.familyBooth} alt="Family breakfast spread at a wooden booth table." loading="lazy" decoding="async" />
+        <img src={mapleMainAssets.footer.windowDecal} alt="Cafe window with maple seed decal, coffee, and a croissant on the sill." loading="lazy" decoding="async" />
         <figure>
           <img src={mapleMainAssets.brand.logoMarkSource} alt="Maple and Main window coffee mark." loading="lazy" decoding="async" />
           <figcaption className="sign-caption">Coffee<br />People<br />Community</figcaption>

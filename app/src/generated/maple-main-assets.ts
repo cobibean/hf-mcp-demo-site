@@ -1,36 +1,37 @@
 export const mapleMainAssets = {
   hero: {
-    still: "/assets/hero/hero-window-still.png",
+    still: "/assets/hero/hero-window-still.webp",
     frameCount: 101,
     framePath: (index: number) =>
       `/assets/frames/hero/window-${index.toString().padStart(3, "0")}.webp`,
   },
   textures: {
-    paintedGreenTrim: "/assets/textures/painted-green-trim.png",
-    boothVinylRed: "/assets/textures/booth-vinyl-red.png",
-    porcelainTabletop: "/assets/textures/porcelain-tabletop.png",
-    menuPaperOverlay: "/assets/textures/menu-paper-overlay.png",
+    paintedGreenTrim: "/assets/textures/painted-green-trim.webp",
+    boothVinylRed: "/assets/textures/booth-vinyl-red.webp",
+    porcelainTabletop: "/assets/textures/porcelain-tabletop.webp",
+    menuPaperOverlay: "/assets/textures/menu-paper-overlay.webp",
   },
   food: {
-    breakfastPancakes: "/assets/food/breakfast-pancakes.png",
-    lunchSoupSandwich: "/assets/food/lunch-soup-sandwich.png",
-    coffeePour: "/assets/food/coffee-pour.png",
+    breakfastPancakes: "/assets/food/breakfast-pancakes.webp",
+    lunchSoupSandwich: "/assets/food/lunch-soup-sandwich.webp",
+    coffeePour: "/assets/food/coffee-pour.webp",
   },
   people: {
-    familyBooth: "/assets/people/family-booth.png",
-    localsCoffeeSeat: "/assets/people/locals-coffee-seat.png",
-    travelerTakeout: "/assets/people/traveler-takeout.png",
+    familyBooth: "/assets/people/family-booth.webp",
+    localsCoffeeSeat: "/assets/people/locals-coffee-seat.webp",
+    travelerTakeout: "/assets/people/traveler-takeout.webp",
   },
   specials: {
-    chalkboardPlate: "/assets/specials/chalkboard-plate.png",
-    handbillCluster: "/assets/specials/handbill-cluster.png",
+    chalkboardPlate: "/assets/specials/chalkboard-plate.webp",
+    handbillCluster: "/assets/specials/handbill-cluster.webp",
   },
   visit: {
-    tabletopStrip: "/assets/visit/tabletop-strip.png",
-    mapBlock: "/assets/visit/map-block.png",
+    tabletopStrip: "/assets/visit/tabletop-strip.webp",
+    mapBlock: "/assets/visit/map-block.webp",
   },
   footer: {
-    lastCup: "/assets/footer/last-cup.png",
+    lastCup: "/assets/footer/last-cup.webp",
+    windowDecal: "/assets/footer/window-decal.webp",
   },
   brand: {
     logoMarkSource: "/assets/brand/logo-mark-source.png",
