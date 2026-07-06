@@ -35,7 +35,42 @@
       crossorigin
     />
     <title>Maple & Main Cafe</title>
-    <script type="module" crossorigin src="/assets/index-Dit-3u4s.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Maple & Main Cafe",
+        "description": "Breakfast, lunch, coffee, and familiar comfort food on Main Street.",
+        "image": "/assets/meta/og-image.png",
+        "servesCuisine": ["Breakfast", "American", "Coffee"],
+        "priceRange": "$",
+        "telephone": "+1-207-555-0148",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "123 Maple Street",
+          "addressLocality": "Portland",
+          "addressRegion": "ME",
+          "postalCode": "04101",
+          "addressCountry": "US"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "06:30",
+            "closes": "15:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Saturday", "Sunday"],
+            "opens": "07:00",
+            "closes": "15:00"
+          }
+        ],
+        "acceptsReservations": "True"
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/index-B9xl1XMP.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-BDOXSh0T.css">
   </head>
   <body>

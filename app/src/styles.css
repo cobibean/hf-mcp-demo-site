@@ -2395,3 +2395,290 @@ video {
     height: 250px;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Interaction states                                                  */
+/* ------------------------------------------------------------------ */
+
+:focus-visible {
+  outline: 3px solid var(--maple-syrup);
+  outline-offset: 3px;
+}
+
+.hero-section :focus-visible,
+.weekly-specials :focus-visible,
+.footer-rail :focus-visible {
+  outline-color: var(--porcelain-white);
+}
+
+/* Plain text links: underline draws in from the left */
+.nav-links a,
+.nav-actions a:not(.nav-outline),
+.menu-topline nav a,
+.counter-topline nav a,
+.specials-nav nav a:not(.is-active),
+.visit-nav nav a,
+.footer-topnav nav a:not(.footer-order),
+.audience-lead p,
+.menu-lockup,
+.wordmark {
+  transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-links a,
+.nav-actions a:not(.nav-outline),
+.menu-topline nav a,
+.counter-topline nav a,
+.specials-nav nav a:not(.is-active),
+.visit-nav nav a,
+.footer-topnav nav a:not(.footer-order) {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: left calc(100% + 4px);
+  background-size: 0% 2px;
+  padding-bottom: 4px;
+  transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-links a:hover,
+.nav-actions a:not(.nav-outline):hover,
+.menu-topline nav a:hover,
+.counter-topline nav a:hover,
+.specials-nav nav a:not(.is-active):hover,
+.visit-nav nav a:hover,
+.footer-topnav nav a:not(.footer-order):hover {
+  background-size: 100% 2px;
+}
+
+/* Outlined pill buttons: fill on hover */
+.nav-outline,
+.specials-order,
+.footer-order {
+  transition:
+    background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-outline:hover,
+.specials-order:hover {
+  background-color: var(--porcelain-white);
+  border-color: var(--porcelain-white);
+  color: var(--coffee-roast);
+}
+
+.footer-order:hover {
+  background-color: var(--front-window-green);
+  border-color: var(--front-window-green);
+  color: var(--porcelain-white);
+}
+
+/* Receipt CTA: the tab lifts off the counter */
+.receipt-cta {
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.receipt-cta:hover {
+  transform: translateY(-4px) rotate(-0.5deg);
+  filter: drop-shadow(0 26px 34px rgba(0, 0, 0, 0.3));
+  color: var(--booth-vinyl-red);
+}
+
+.receipt-cta:active {
+  transform: translateY(-1px) rotate(-0.5deg);
+  filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.24));
+}
+
+.receipt-cta i {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.receipt-cta:hover i {
+  transform: translateX(5px);
+}
+
+/* Ticket CTA: the stub straightens and tugs, like it's about to tear */
+.ticket-cta {
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ticket-cta:hover {
+  transform: rotate(1.6deg) translateY(-3px);
+  filter: drop-shadow(0 22px 30px rgba(52, 37, 30, 0.3));
+}
+
+.ticket-cta:active {
+  transform: rotate(2.4deg) translateY(-1px) scale(0.985);
+}
+
+.ticket-cta i {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ticket-cta:hover i {
+  transform: translateX(4px);
+}
+
+/* Chalk CTA: the underline redraws in one stroke */
+.chalk-cta::after {
+  transform-origin: left center;
+}
+
+@keyframes chalk-draw {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.chalk-cta:hover::after {
+  animation: chalk-draw 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.chalk-cta span {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.chalk-cta:hover span {
+  transform: translateX(6px);
+}
+
+/* Directions CTA: the corner brackets close around the label */
+.directions-cta {
+  transition: color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.directions-cta::before,
+.directions-cta::after {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.directions-cta:hover {
+  color: var(--booth-vinyl-red);
+}
+
+.directions-cta:hover::before {
+  transform: translate(3px, 3px);
+}
+
+.directions-cta:hover::after {
+  transform: translate(-3px, -3px);
+}
+
+/* Call-ahead band: syrup shifts to coffee roast */
+.call-ahead-band {
+  transition: background-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.call-ahead-band span,
+.call-ahead-band em {
+  transition: color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.call-ahead-band i {
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.call-ahead-band:hover {
+  background-color: var(--coffee-roast);
+}
+
+.call-ahead-band:hover span,
+.call-ahead-band:hover em {
+  color: var(--maple-syrup);
+}
+
+.call-ahead-band:hover i {
+  transform: translateX(10px);
+  color: var(--maple-syrup);
+}
+
+/* Meal cards: lift while keeping their tilt */
+.meal-card {
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.meal-card-breakfast:hover {
+  transform: rotate(-1deg) translateY(-8px);
+}
+
+.meal-card-lunch:hover {
+  transform: rotate(2deg) translateY(-8px);
+}
+
+.meal-card-coffee:hover {
+  transform: rotate(4deg) translateY(-8px);
+}
+
+.meal-card:hover {
+  box-shadow:
+    12px 16px 0 rgba(47, 95, 74, 0.1),
+    0 26px 42px rgba(52, 37, 30, 0.22);
+}
+
+/* Arrow links: the arrow leads */
+.text-arrow-cta span,
+.path-content b,
+.save-seat a b {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.text-arrow-cta:hover span,
+.path-content a:hover b,
+.save-seat a:hover b {
+  transform: translateX(6px);
+}
+
+.text-arrow-cta,
+.path-content a,
+.save-seat a,
+.footer-rail a,
+.visit-lockup,
+.counter-lockup,
+.specials-lockup,
+.footer-name {
+  transition: color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.text-arrow-cta:hover,
+.path-content a:hover {
+  color: var(--booth-vinyl-red);
+}
+
+.save-seat a:hover {
+  color: var(--maple-syrup-ink);
+  border-bottom-color: var(--maple-syrup-ink);
+}
+
+.footer-rail a {
+  transition:
+    color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.footer-rail a:hover {
+  color: #f0cf9c;
+  border-bottom-color: #f0cf9c;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

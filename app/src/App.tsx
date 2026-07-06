@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { mapleMainAssets } from "./generated/maple-main-assets";
 import useHeroSequence from "./motion/useHeroSequence";
+import useSectionReveals from "./motion/useSectionReveals";
 
 const menuReasons = [
   {
@@ -554,6 +555,8 @@ function SiteFooter() {
 }
 
 export default function App() {
+  useSectionReveals();
+
   return (
     <main>
       <HeroSection />
