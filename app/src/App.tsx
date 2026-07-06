@@ -186,8 +186,7 @@ function HeroSection() {
         </nav>
 
         <a className="wordmark" href="#top" aria-label="Maple and Main Cafe home">
-          <span>Maple &amp; Main</span>
-          <small>Cafe</small>
+          <small>Est. Main St</small>
         </a>
 
         <div className="nav-actions">
@@ -198,15 +197,15 @@ function HeroSection() {
         </div>
       </header>
 
-      <div className="window-sign" aria-hidden="true">
+      <h1 className="window-sign">
         <span>Maple &amp; Main</span>
         <small>Cafe</small>
         <b>Breakfast · Coffee · Community</b>
-      </div>
+      </h1>
 
       <div className="hero-copy">
-        <h1>Morning starts on Main</h1>
-        <p>Good coffee. Real food. Your people.</p>
+        <p className="hero-kicker">Morning starts on Main</p>
+        <p className="hero-tagline">Good coffee. Real food. Your people.</p>
         <a className="receipt-cta" href="#menu">
           <span>See Menu</span>
           <i aria-hidden="true">-&gt;</i>
