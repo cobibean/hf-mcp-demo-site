@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { mapleMainAssets } from "./generated/maple-main-assets";
 import useHeroSequence from "./motion/useHeroSequence";
 import useSectionReveals from "./motion/useSectionReveals";
@@ -109,6 +109,45 @@ const visitDetails = [
   },
 ];
 
+function StickyNav() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const hero = document.querySelector(".hero-section");
+
+    if (!hero) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(!entry.isIntersecting),
+      { threshold: 0 },
+    );
+
+    observer.observe(hero);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className={`sticky-nav${isVisible ? " is-visible" : ""}`}>
+      <a className="sticky-brand" href="#top">
+        Maple &amp; Main <small>Cafe</small>
+      </a>
+      <nav aria-label="Site navigation">
+        <a href="#menu">Menu</a>
+        <a href="#favorites">Favorites</a>
+        <a href="#people">About</a>
+        <a href="#specials">Specials</a>
+        <a href="#visit">Visit</a>
+      </nav>
+      <a className="sticky-order" href="#visit">
+        Book a Table
+      </a>
+    </div>
+  );
+}
+
 function HeroSection() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const heroRef = useRef<HTMLElement | null>(null);
@@ -192,13 +231,6 @@ function DailyReasonsSection() {
           <span>Maple &amp; Main</span>
           <i>Cafe</i>
         </a>
-        <nav aria-label="Menu section links">
-          <a href="#menu">Menu</a>
-          <b aria-hidden="true">·</b>
-          <a href="#people">About</a>
-          <b aria-hidden="true">·</b>
-          <a href="#visit">Visit</a>
-        </nav>
       </div>
 
       <a className="ticket-cta" href="#visit" aria-label="Order To Go">
@@ -260,12 +292,6 @@ function CounterFavoritesSection() {
           <span>Maple &amp; Main</span>
           <small>Cafe</small>
         </a>
-        <nav aria-label="Counter favorites links">
-          <a href="#menu">Menu</a>
-          <a href="#people">About</a>
-          <a href="#specials">Specials</a>
-          <a href="#visit">Visit</a>
-        </nav>
       </div>
 
       <div className="counter-copy">
@@ -364,18 +390,11 @@ function WeeklySpecialsSection() {
       id="specials"
       style={{ backgroundImage: `url(${mapleMainAssets.textures.paintedGreenTrim})` }}
     >
-      <header className="specials-nav" aria-label="Specials navigation">
+      <header className="specials-nav" aria-label="Specials masthead">
         <a href="#top" className="specials-lockup">
           <span>Maple &amp; Main</span>
           <small>Cafe</small>
         </a>
-        <nav>
-          <a href="#menu">Menu</a>
-          <a className="is-active" href="#specials">Specials</a>
-          <a href="#favorites">Favorites</a>
-          <a href="#people">About</a>
-          <a href="#visit">Visit</a>
-        </nav>
         <a className="specials-order" href="#visit">Order Ahead</a>
       </header>
 
@@ -417,17 +436,11 @@ function WeeklySpecialsSection() {
 function VisitDetailsSection() {
   return (
     <section className="visit-details" id="visit">
-      <header className="visit-nav" aria-label="Visit navigation">
+      <header className="visit-nav" aria-label="Visit masthead">
         <a href="#top" className="visit-lockup">
           <span>Maple<br />&amp; Main</span>
           <small>Cafe</small>
         </a>
-        <nav>
-          <a href="#menu">Menu</a>
-          <a href="#favorites">Favorites</a>
-          <a href="#people">About</a>
-          <a href="#specials">Specials</a>
-        </nav>
         <a className="directions-cta" href="https://maps.apple.com/?q=123%20Maple%20Street%20Portland%20ME">
           Get Directions
         </a>
@@ -559,6 +572,7 @@ export default function App() {
 
   return (
     <main>
+      <StickyNav />
       <HeroSection />
       <DailyReasonsSection />
       <CounterFavoritesSection />

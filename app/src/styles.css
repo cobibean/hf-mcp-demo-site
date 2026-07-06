@@ -492,16 +492,76 @@ video {
   text-transform: none;
 }
 
-.menu-topline nav {
-  display: flex;
+.sticky-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 15px;
-  margin-right: 185px;
-  font-size: 0.77rem;
+  gap: 24px;
+  min-height: 60px;
+  padding: 0 max(clamp(18px, 4.6vw, 66px), var(--edge));
+  background:
+    linear-gradient(rgba(47, 95, 74, 0.97), rgba(21, 66, 45, 0.97)),
+    var(--front-window-green);
+  color: var(--porcelain-white);
+  font-family: var(--display);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 24px rgba(10, 16, 12, 0.18);
+  transform: translateY(-100%);
+  visibility: hidden;
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s 0.45s;
 }
 
-.menu-topline b {
+.sticky-nav.is-visible {
+  transform: translateY(0);
+  visibility: visible;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sticky-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+.sticky-brand small {
   color: #f0cf9c;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+}
+
+.sticky-nav nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(18px, 3vw, 42px);
+  font-size: 0.78rem;
+}
+
+.sticky-order {
+  border: 1px solid rgba(247, 242, 234, 0.74);
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 0.74rem;
+}
+
+@media (max-width: 760px) {
+  .sticky-nav nav {
+    display: none;
+  }
+
+  .sticky-order {
+    padding: 8px 12px;
+    font-size: 0.68rem;
+  }
 }
 
 .ticket-cta {
@@ -841,7 +901,6 @@ video {
     padding-bottom: 44px;
   }
 
-  .menu-topline nav,
   .ticket-cta {
     display: none;
   }
@@ -1211,14 +1270,6 @@ video {
   font-size: 1rem;
 }
 
-.visit-nav nav {
-  display: flex;
-  justify-content: space-around;
-  gap: clamp(20px, 4vw, 70px);
-  padding: 0 28px;
-  font-size: clamp(0.9rem, 1.1vw, 1.08rem);
-}
-
 .directions-cta {
   position: relative;
   display: inline-flex;
@@ -1454,10 +1505,6 @@ video {
     grid-template-columns: 1fr auto;
   }
 
-  .visit-nav nav {
-    display: none;
-  }
-
   .visit-info-row {
     grid-template-columns: 1fr;
   }
@@ -1568,21 +1615,6 @@ video {
   margin-left: 52px;
   font-size: clamp(0.9rem, 1.3vw, 1.1rem);
   letter-spacing: 0.2em;
-}
-
-.specials-nav nav {
-  display: flex;
-  gap: clamp(28px, 4vw, 62px);
-  justify-content: center;
-  padding-top: 8px;
-  font-size: clamp(0.88rem, 1.2vw, 1.1rem);
-}
-
-.specials-nav .is-active {
-  color: var(--porcelain-white);
-  text-decoration: underline;
-  text-decoration-color: var(--maple-syrup);
-  text-underline-offset: 10px;
 }
 
 .specials-order {
@@ -1749,10 +1781,6 @@ video {
 
   .specials-nav {
     grid-template-columns: 1fr auto;
-  }
-
-  .specials-nav nav {
-    display: none;
   }
 
   .specials-copy {
@@ -2177,14 +2205,6 @@ video {
   letter-spacing: 0.18em;
 }
 
-.counter-topline nav {
-  display: flex;
-  align-items: center;
-  gap: clamp(24px, 3vw, 38px);
-  padding-top: 5px;
-  font-size: clamp(0.74rem, 1vw, 0.95rem);
-}
-
 .counter-copy {
   position: relative;
   z-index: 2;
@@ -2360,10 +2380,6 @@ video {
     gap: 24px;
   }
 
-  .counter-topline nav {
-    display: none;
-  }
-
   .counter-copy h2 {
     font-size: clamp(4rem, 18vw, 6.6rem);
   }
@@ -2406,6 +2422,7 @@ video {
 }
 
 .hero-section :focus-visible,
+.sticky-nav :focus-visible,
 .weekly-specials :focus-visible,
 .footer-rail :focus-visible {
   outline-color: var(--porcelain-white);
@@ -2414,10 +2431,7 @@ video {
 /* Plain text links: underline draws in from the left */
 .nav-links a,
 .nav-actions a:not(.nav-outline),
-.menu-topline nav a,
-.counter-topline nav a,
-.specials-nav nav a:not(.is-active),
-.visit-nav nav a,
+.sticky-nav nav a,
 .footer-topnav nav a:not(.footer-order),
 .audience-lead p,
 .menu-lockup,
@@ -2427,10 +2441,7 @@ video {
 
 .nav-links a,
 .nav-actions a:not(.nav-outline),
-.menu-topline nav a,
-.counter-topline nav a,
-.specials-nav nav a:not(.is-active),
-.visit-nav nav a,
+.sticky-nav nav a,
 .footer-topnav nav a:not(.footer-order) {
   background-image: linear-gradient(currentColor, currentColor);
   background-repeat: no-repeat;
@@ -2442,16 +2453,14 @@ video {
 
 .nav-links a:hover,
 .nav-actions a:not(.nav-outline):hover,
-.menu-topline nav a:hover,
-.counter-topline nav a:hover,
-.specials-nav nav a:not(.is-active):hover,
-.visit-nav nav a:hover,
+.sticky-nav nav a:hover,
 .footer-topnav nav a:not(.footer-order):hover {
   background-size: 100% 2px;
 }
 
 /* Outlined pill buttons: fill on hover */
 .nav-outline,
+.sticky-order,
 .specials-order,
 .footer-order {
   transition:
@@ -2461,6 +2470,7 @@ video {
 }
 
 .nav-outline:hover,
+.sticky-order:hover,
 .specials-order:hover {
   background-color: var(--porcelain-white);
   border-color: var(--porcelain-white);
