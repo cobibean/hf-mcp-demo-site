@@ -3,6 +3,9 @@ import { mapleMainAssets } from "./generated/maple-main-assets";
 import useHeroSequence from "./motion/useHeroSequence";
 import useSectionReveals from "./motion/useSectionReveals";
 
+const callHref = "tel:+12075550148";
+const directionsHref = "https://maps.apple.com/?q=123%20Maple%20Street%20Portland%20ME";
+
 const menuReasons = [
   {
     key: "breakfast",
@@ -80,29 +83,31 @@ const audiencePaths = [
 
 const visitDetails = [
   {
+    key: "hours",
     label: "Hours",
-    icon: mapleMainAssets.icons.hours,
-    lines: ["Mon - Fri", "6:30am - 3:00pm", "Sat - Sun", "7:00am - 3:00pm"],
+    icons: [mapleMainAssets.icons.hours],
+    details: [
+      { label: "Monday - Friday", value: "6:30am - 3:00pm" },
+      { label: "Saturday - Sunday", value: "7:00am - 3:00pm" },
+    ],
   },
   {
-    label: "Address",
-    icon: mapleMainAssets.icons.coffee,
-    lines: ["123 Maple Street", "Portland, ME 04101", "Neighborhood,", "not a chain."],
+    key: "find-us",
+    label: "Find us",
+    icons: [mapleMainAssets.icons.coffee, mapleMainAssets.icons.parking],
+    details: [
+      { label: "123 Maple Street", value: "Portland, Maine 04101" },
+      { label: "Parking", value: "Street parking and a rear lot off Main." },
+    ],
   },
   {
-    label: "Parking",
-    icon: mapleMainAssets.icons.parking,
-    lines: ["Free street parking", "on Maple & Main.", "Lot behind cafe", "access off Main."],
-  },
-  {
-    label: "Family Seating",
-    icon: mapleMainAssets.icons.kids,
-    lines: ["Booth seating,", "high chairs,", "kids welcome.", "All are welcome at our table."],
-  },
-  {
-    label: "Phone",
-    icon: mapleMainAssets.icons.takeout,
-    lines: ["Call ahead", "for pick up", "or reservations."],
+    key: "at-the-cafe",
+    label: "At the cafe",
+    icons: [mapleMainAssets.icons.kids, mapleMainAssets.icons.takeout],
+    details: [
+      { label: "Family seating", value: "Booths, high chairs, and kids are welcome." },
+      { label: "Call ahead", value: "Pickup and reservations at 207-555-0148." },
+    ],
   },
 ];
 
@@ -163,7 +168,7 @@ function StickyNav() {
         <a href="#specials" tabIndex={isVisible ? 0 : -1}>Specials</a>
         <a href="#visit" tabIndex={isVisible ? 0 : -1}>Visit</a>
       </nav>
-      <a className="sticky-order" href="#visit" tabIndex={isVisible ? 0 : -1}>
+      <a className="sticky-order" href={callHref} tabIndex={isVisible ? 0 : -1}>
         Book a Table
       </a>
     </header>
@@ -212,8 +217,8 @@ function HeroSection() {
         </a>
 
         <div className="nav-actions">
-          <a href="#menu">Order Ahead</a>
-          <a className="nav-outline" href="#visit">
+          <a href={callHref}>Order Ahead</a>
+          <a className="nav-outline" href={callHref}>
             Book a Table
           </a>
         </div>
@@ -249,7 +254,7 @@ function DailyReasonsSection() {
     >
       <div className="menu-topline">
         <span className="menu-service">Breakfast · lunch · coffee</span>
-        <span className="menu-hours">Open daily · 7am to 3pm</span>
+        <span className="menu-hours">Open daily · serving through 3pm</span>
       </div>
 
       <div className="daily-copy">
@@ -258,8 +263,10 @@ function DailyReasonsSection() {
         <p className="daily-note">
           Good food, strong coffee, neighborhood seat always saved for you.
         </p>
-        <a className="daily-order text-arrow-cta" href="#visit">
-          Order to go <span aria-hidden="true">-&gt;</span>
+        <a className="daily-order" href={callHref}>
+          <span>Order to go</span>
+          <i aria-hidden="true">-&gt;</i>
+          <b aria-hidden="true">MM 003</b>
         </a>
       </div>
 
@@ -389,13 +396,13 @@ function WeeklySpecialsSection() {
     >
       <header className="specials-nav" aria-label="Specials masthead">
         <span className="specials-lockup">Weekly at Maple &amp; Main</span>
-        <a className="specials-order" href="#visit">Order Ahead</a>
+        <a className="specials-order" href={callHref}>Order Ahead</a>
       </header>
 
       <div className="specials-copy">
         <p>From our kitchen</p>
         <h2>This week's board</h2>
-        <a className="chalk-cta" href="#visit">View specials <span aria-hidden="true">-&gt;</span></a>
+        <a className="chalk-cta" href={callHref}>Call for today's plate <span aria-hidden="true">-&gt;</span></a>
       </div>
 
       <figure className="chalkboard-frame">
@@ -433,7 +440,7 @@ function VisitDetailsSection() {
       <header className="visit-nav" aria-label="Visit masthead">
         <a href="#top" className="visit-lockup">Maple &amp; Main Cafe</a>
         <span>123 Maple Street · Portland, Maine</span>
-        <a className="directions-cta" href="https://maps.apple.com/?q=123%20Maple%20Street%20Portland%20ME">
+        <a className="directions-cta" href={directionsHref}>
           Get Directions
         </a>
       </header>
@@ -447,13 +454,18 @@ function VisitDetailsSection() {
 
         <div className="visit-columns" aria-label="Visit details">
           {visitDetails.map((item) => (
-            <article className="visit-card" key={item.label}>
-              <img src={item.icon} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+            <article className={`visit-card visit-card-${item.key}`} key={item.key}>
+              <div className="visit-card-icons" aria-hidden="true">
+                {item.icons.map((icon) => (
+                  <img src={icon} alt="" key={icon} loading="lazy" decoding="async" />
+                ))}
+              </div>
               <h3>{item.label}</h3>
-              {item.lines.map((line, index) => (
-                <p className={index > 1 ? "visit-accent" : undefined} key={`${item.label}-${line}`}>
-                  {line}
-                </p>
+              {item.details.map((detail) => (
+                <div className="visit-detail" key={`${item.key}-${detail.label}`}>
+                  <strong>{detail.label}</strong>
+                  <p>{detail.value}</p>
+                </div>
               ))}
             </article>
           ))}
@@ -471,7 +483,7 @@ function VisitDetailsSection() {
         </figure>
       </div>
 
-      <a className="call-ahead-band" href="tel:+12075550148">
+      <a className="call-ahead-band" href={callHref}>
         <span>Call Ahead</span>
         <i aria-hidden="true">-&gt;</i>
         <b>207-555-0148</b>
@@ -484,16 +496,6 @@ function VisitDetailsSection() {
 function SiteFooter() {
   return (
     <footer className="site-footer" id="footer">
-      <div className="footer-topnav">
-        <a href="#top" className="footer-name">Maple &amp; Main Cafe</a>
-        <nav aria-label="Footer navigation">
-          <a href="#menu">Menu</a>
-          <a href="#specials">Specials</a>
-          <a href="#visit">Visit</a>
-          <a className="footer-order" href="#visit">Order Ahead</a>
-        </nav>
-      </div>
-
       <div className="footer-image-strip" aria-label="Cafe closing gallery">
         <figure>
           <img src={mapleMainAssets.hero.still} alt="Maple and Main Cafe front window." loading="lazy" decoding="async" />
@@ -525,13 +527,13 @@ function SiteFooter() {
           <strong>Maple &amp; Main Cafe</strong>
           <span>123 Maple Street</span>
           <span>Portland, ME 04101</span>
-          <a href="#visit">Get directions</a>
+          <a href={directionsHref}>Get directions</a>
         </address>
         <div>
           <strong>Hours</strong>
           <span>Mon-Fri&nbsp;&nbsp;&nbsp;6:30am - 3:00pm</span>
           <span>Sat-Sun&nbsp;&nbsp;&nbsp;7:00am - 3:00pm</span>
-          <a href="#visit">Holiday hours</a>
+          <a href={callHref}>Call for holiday hours</a>
         </div>
         <img className="footer-monogram" src={mapleMainAssets.brand.monogramBadgeSource} alt="Maple and Main monogram." loading="lazy" decoding="async" />
         <div className="footer-staples">
