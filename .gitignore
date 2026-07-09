@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+
+# Build and tool caches
+.vite/
+*.tsbuildinfo
+.cache/
+.eslintcache
+
+# Browser and test artifacts
+.playwright-cli/
+.playwright-mcp/
+output/
+test-results/
+playwright-report/
+coverage/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+*.swp
+*.swo
+
+# Local visual-QA captures
+/.codex-*.png
+/maple-main-*.png
