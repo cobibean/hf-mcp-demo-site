@@ -39,8 +39,9 @@ export default function useHeroSequence({
 }: HeroSequenceOptions) {
   useEffect(() => {
     const browserWindow = globalThis.window;
+    const browserDocument = globalThis.document;
 
-    if (!browserWindow) {
+    if (!browserWindow || !browserDocument) {
       return undefined;
     }
 
@@ -412,7 +413,7 @@ export default function useHeroSequence({
           return;
         }
 
-        const destination = href === "#top" ? 0 : document.querySelector<HTMLElement>(href);
+        const destination = href === "#top" ? 0 : browserDocument.querySelector<HTMLElement>(href);
 
         if (destination === null) {
           return;
@@ -421,7 +422,7 @@ export default function useHeroSequence({
         event.preventDefault();
         lenisInstance?.scrollTo(destination, { duration: 1.2 });
       };
-      document.addEventListener("click", anchorClickHandler);
+      browserDocument.addEventListener("click", anchorClickHandler);
       tickerCallback = (time: number) => {
         lenisInstance?.raf(time * 1000);
       };
@@ -467,7 +468,7 @@ export default function useHeroSequence({
       }
 
       if (anchorClickHandler) {
-        document.removeEventListener("click", anchorClickHandler);
+        browserDocument.removeEventListener("click", anchorClickHandler);
       }
 
       tweenInstance?.scrollTrigger?.kill();

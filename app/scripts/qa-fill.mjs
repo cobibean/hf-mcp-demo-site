@@ -144,9 +144,18 @@ function checkEveryPublicAssetUsed(files) {
 
     const publicPath = `/${path.relative(publicRoot, file).replaceAll(path.sep, "/")}`;
     const basename = path.basename(publicPath);
+    const extension = path.extname(publicPath);
+    const assetStem = publicPath.slice(0, -extension.length);
     const isHeroFrame =
       publicPath.startsWith("/assets/frames/hero/window-") && publicPath.endsWith(".webp");
-    const used = haystack.includes(publicPath) || haystack.includes(basename) || isHeroFrame;
+    const siblingVariantUsed = [...binaryExtensions].some((candidateExtension) =>
+      haystack.includes(`${assetStem}${candidateExtension}`),
+    );
+    const used =
+      haystack.includes(publicPath) ||
+      haystack.includes(basename) ||
+      siblingVariantUsed ||
+      isHeroFrame;
 
     if (!used) {
       unused.push(publicPath);

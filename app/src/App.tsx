@@ -54,28 +54,25 @@ const favorites = [
 const audiencePaths = [
   {
     key: "locals",
-    path: "Path 01",
+    number: "01",
     title: "Locals",
     text: "Your regular seat. Familiar faces, strong coffee, and the same booth you love.",
-    cta: "Explore your routine",
     image: mapleMainAssets.people.localsCoffeeSeat,
     alt: "Coffee mug and folded paper at a red booth by the cafe window.",
   },
   {
     key: "families",
-    path: "Path 02",
+    number: "02",
     title: "Families",
     text: "Room to settle in. Good food, easy mornings, and space for everyone.",
-    cta: "Plan your family stop",
     image: mapleMainAssets.people.familyBooth,
     alt: "Family breakfast spread on a wooden booth table with pancakes and coffee.",
   },
   {
     key: "travelers",
-    path: "Path 03",
+    number: "03",
     title: "Travelers",
     text: "A warm welcome. Local flavor, real conversations, and somewhere to land.",
-    cta: "Discover your stop",
     image: mapleMainAssets.people.travelerTakeout,
     alt: "Takeout coffee and map on a sidewalk table outside the cafe.",
   },
@@ -113,38 +110,63 @@ function StickyNav() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const hero = document.querySelector(".hero-section");
+    const browserWindow = globalThis.window;
+    const browserDocument = globalThis.document;
+    const hero = browserDocument?.querySelector(".hero-section");
 
-    if (!hero) {
+    if (!browserWindow || !hero) {
       return undefined;
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(!entry.isIntersecting),
-      { threshold: 0 },
-    );
+    let animationFrame = 0;
 
-    observer.observe(hero);
+    const updateVisibility = () => {
+      animationFrame = 0;
+      setIsVisible(hero.getBoundingClientRect().bottom <= 128);
+    };
 
-    return () => observer.disconnect();
+    const handleScroll = () => {
+      if (animationFrame !== 0) {
+        return;
+      }
+
+      animationFrame = browserWindow.requestAnimationFrame(updateVisibility);
+    };
+
+    updateVisibility();
+    browserWindow.addEventListener("scroll", handleScroll, { passive: true });
+    browserWindow.addEventListener("resize", handleScroll, { passive: true });
+
+    return () => {
+      browserWindow.removeEventListener("scroll", handleScroll);
+      browserWindow.removeEventListener("resize", handleScroll);
+
+      if (animationFrame !== 0) {
+        browserWindow.cancelAnimationFrame(animationFrame);
+      }
+    };
   }, []);
 
   return (
-    <div className={`sticky-nav${isVisible ? " is-visible" : ""}`}>
-      <a className="sticky-brand" href="#top">
+    <header
+      className={`sticky-nav${isVisible ? " is-visible" : ""}`}
+      aria-hidden={!isVisible}
+      inert={!isVisible}
+    >
+      <a className="sticky-brand" href="#top" tabIndex={isVisible ? 0 : -1}>
         Maple &amp; Main <small>Cafe</small>
       </a>
       <nav aria-label="Site navigation">
-        <a href="#menu">Menu</a>
-        <a href="#favorites">Favorites</a>
-        <a href="#people">About</a>
-        <a href="#specials">Specials</a>
-        <a href="#visit">Visit</a>
+        <a href="#menu" tabIndex={isVisible ? 0 : -1}>Menu</a>
+        <a href="#favorites" tabIndex={isVisible ? 0 : -1}>Favorites</a>
+        <a href="#people" tabIndex={isVisible ? 0 : -1}>About</a>
+        <a href="#specials" tabIndex={isVisible ? 0 : -1}>Specials</a>
+        <a href="#visit" tabIndex={isVisible ? 0 : -1}>Visit</a>
       </nav>
-      <a className="sticky-order" href="#visit">
+      <a className="sticky-order" href="#visit" tabIndex={isVisible ? 0 : -1}>
         Book a Table
       </a>
-    </div>
+    </header>
   );
 }
 
@@ -226,17 +248,9 @@ function DailyReasonsSection() {
       }}
     >
       <div className="menu-topline">
-        <a href="#top" className="menu-lockup">
-          <span>Maple &amp; Main</span>
-          <i>Cafe</i>
-        </a>
+        <span className="menu-service">Breakfast · lunch · coffee</span>
+        <span className="menu-hours">Open daily · 7am to 3pm</span>
       </div>
-
-      <a className="ticket-cta" href="#visit" aria-label="Order To Go">
-        <span>Order<br />To Go</span>
-        <i aria-hidden="true">-&gt;</i>
-        <b aria-hidden="true">00380</b>
-      </a>
 
       <div className="daily-copy">
         <p className="menu-eyebrow">Menu</p>
@@ -244,13 +258,10 @@ function DailyReasonsSection() {
         <p className="daily-note">
           Good food, strong coffee, neighborhood seat always saved for you.
         </p>
-        <div className="daily-stamp" aria-hidden="true">
-          <span>Maple &amp; Main</span>
-          <small>Cafe</small>
-        </div>
+        <a className="daily-order text-arrow-cta" href="#visit">
+          Order to go <span aria-hidden="true">-&gt;</span>
+        </a>
       </div>
-
-      <p className="daily-hours">Open daily<br />7am - 3pm</p>
 
       <div className="meal-strip" aria-label="Daily reasons to stop in">
         {menuReasons.map((item) => (
@@ -268,10 +279,6 @@ function DailyReasonsSection() {
         ))}
       </div>
 
-      <div className="paper-sketch" aria-hidden="true">
-        <span></span>
-        <b></b>
-      </div>
       <p className="batch-note">Made in small batches<br />right here, every day.</p>
     </section>
   );
@@ -287,10 +294,7 @@ function CounterFavoritesSection() {
       }}
     >
       <div className="counter-topline">
-        <a className="counter-lockup" href="#top">
-          <span>Maple &amp; Main</span>
-          <small>Cafe</small>
-        </a>
+        <span>House favorites · three reasons to stay for another cup</span>
       </div>
 
       <div className="counter-copy">
@@ -350,31 +354,25 @@ function AudiencePathsSection() {
       }}
     >
       <div className="audience-lead">
-        <p>Maple &amp; Main Cafe <span aria-hidden="true">+</span> Audience Paths</p>
-        <h2>Three ways to make M&amp;M your morning.</h2>
-        <small>Same booth. Different reasons. Find the path that fits your morning ritual.</small>
+        <p>Made for the whole town</p>
+        <h2>Your table is already here.</h2>
+        <small>Regulars, families, and road-trippers all get the same thing: a warm welcome and a good plate.</small>
+        <a className="audience-cta text-arrow-cta" href="#visit">
+          Find us on Main Street <span aria-hidden="true">-&gt;</span>
+        </a>
       </div>
 
-      <div className="floor-plan" aria-hidden="true"></div>
-
-      <div className="path-panel-row" aria-label="Ways to visit Maple and Main">
+      <div className="audience-scenes" aria-label="People who visit Maple and Main">
         {audiencePaths.map((item) => (
-          <article className={`path-panel path-panel-${item.key}`} key={item.key}>
-            <div
-              className="path-booth"
-              style={{ backgroundImage: `url(${mapleMainAssets.textures.boothVinylRed})` }}
-              aria-hidden="true"
-            ></div>
-            <div className="path-content">
-              <span>{item.path}</span>
-              <h3>{item.title}</h3>
-              <i aria-hidden="true"></i>
-              <p>{item.text}</p>
-              <a href="#visit">
-                {item.cta} <b aria-hidden="true">-&gt;</b>
-              </a>
-            </div>
+          <article className={`audience-scene audience-scene-${item.key}`} key={item.key}>
             <img src={item.image} alt={item.alt} loading="lazy" decoding="async" />
+            <div>
+              <span>{item.number}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </div>
           </article>
         ))}
       </div>
@@ -390,10 +388,7 @@ function WeeklySpecialsSection() {
       style={{ backgroundImage: `url(${mapleMainAssets.textures.paintedGreenTrim})` }}
     >
       <header className="specials-nav" aria-label="Specials masthead">
-        <a href="#top" className="specials-lockup">
-          <span>Maple &amp; Main</span>
-          <small>Cafe</small>
-        </a>
+        <span className="specials-lockup">Weekly at Maple &amp; Main</span>
         <a className="specials-order" href="#visit">Order Ahead</a>
       </header>
 
@@ -436,10 +431,8 @@ function VisitDetailsSection() {
   return (
     <section className="visit-details" id="visit">
       <header className="visit-nav" aria-label="Visit masthead">
-        <a href="#top" className="visit-lockup">
-          <span>Maple<br />&amp; Main</span>
-          <small>Cafe</small>
-        </a>
+        <a href="#top" className="visit-lockup">Maple &amp; Main Cafe</a>
+        <span>123 Maple Street · Portland, Maine</span>
         <a className="directions-cta" href="https://maps.apple.com/?q=123%20Maple%20Street%20Portland%20ME">
           Get Directions
         </a>
@@ -495,8 +488,6 @@ function SiteFooter() {
         <a href="#top" className="footer-name">Maple &amp; Main Cafe</a>
         <nav aria-label="Footer navigation">
           <a href="#menu">Menu</a>
-          <a href="#favorites">Favorites</a>
-          <a href="#people">About</a>
           <a href="#specials">Specials</a>
           <a href="#visit">Visit</a>
           <a className="footer-order" href="#visit">Order Ahead</a>
@@ -524,10 +515,9 @@ function SiteFooter() {
         <h2>Save a seat</h2>
         <div>
           <p>Good coffee. Kind people. Local roots.</p>
-          <span>Whether it's your morning ritual or a midday reset, we'll save you a spot.</span>
+          <span>Morning ritual or midday reset, there is always room at the table.</span>
           <a href="#visit">Plan your visit <b aria-hidden="true">-&gt;</b></a>
         </div>
-        <img src={mapleMainAssets.brand.logoMarkSource} alt="" aria-hidden="true" loading="lazy" decoding="async" />
       </section>
 
       <div className="footer-rail">

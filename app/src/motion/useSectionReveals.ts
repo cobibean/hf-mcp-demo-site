@@ -13,7 +13,7 @@ const revealGroups: RevealGroup[] = [
   { selector: ".meal-card", y: 44, stagger: 0.12 },
   { selector: ".favorites-list li", y: 26, stagger: 0.1 },
   { selector: ".favorite-frame", y: 46, stagger: 0.14 },
-  { selector: ".path-panel", y: 52, stagger: 0.16 },
+  { selector: ".audience-scene", y: 42, stagger: 0.12 },
   { selector: ".chalkboard-frame, .handbill-cluster", y: 38, stagger: 0.15 },
   { selector: ".visit-card", y: 22, stagger: 0.08 },
   { selector: ".save-seat h2, .save-seat div", y: 26, stagger: 0.12 },
@@ -22,8 +22,9 @@ const revealGroups: RevealGroup[] = [
 export default function useSectionReveals() {
   useEffect(() => {
     const browserWindow = globalThis.window;
+    const browserDocument = globalThis.document;
 
-    if (!browserWindow) {
+    if (!browserWindow || !browserDocument) {
       return undefined;
     }
 
@@ -50,7 +51,7 @@ export default function useSectionReveals() {
       gsap.registerPlugin(ScrollTrigger);
 
       revealGroups.forEach(({ selector, y, stagger }) => {
-        const elements = Array.from(document.querySelectorAll<HTMLElement>(selector));
+        const elements = Array.from(browserDocument.querySelectorAll<HTMLElement>(selector));
 
         if (elements.length === 0) {
           return;
@@ -62,11 +63,10 @@ export default function useSectionReveals() {
           onEnter: (batch) => {
             gsap.from(batch, {
               y,
-              autoAlpha: 0,
-              duration: 0.9,
-              ease: "power3.out",
+              duration: 0.82,
+              ease: "power4.out",
               stagger,
-              clearProps: "transform,opacity,visibility",
+              clearProps: "transform",
             });
           },
         });
