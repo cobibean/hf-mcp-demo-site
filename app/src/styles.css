@@ -1035,6 +1035,13 @@ video {
   display: grid;
   grid-template-columns: 1.04fr 1.08fr 1fr 1.08fr 1.06fr;
   height: 292px;
+  overflow: hidden;
+}
+
+.footer-image-strip > * {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
 }
 
 .footer-image-strip > img,
